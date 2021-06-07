@@ -30,8 +30,10 @@ void UWorldPosition::BeginPlay()
 	// UE_LOG(LogTemp, Display, TEXT("This is a display"));
 
 	FString ObjectName = GetOwner()->GetName();
+	FString ObjectLocation = GetOwner()->GetActorLocation().ToString();
 	// UE_LOG(LogTemp, Warning, TEXT("Object name is: %s"), *ObjectName);
-	UE_LOG(LogTemp, Warning, TEXT("Object name is: %s"), *GetOwner()->GetName());
+	// UE_LOG(LogTemp, Warning, TEXT("Object name is: %s"), *GetOwner()->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Object location is: %s"), *ObjectLocation);
 }
 
 // Called every frame

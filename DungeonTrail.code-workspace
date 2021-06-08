@@ -15,7 +15,8 @@
 			"${default}",
 			"C:\\My_Files\\Developing\\UnrealEngine\\UE4_DungeonTrail\\Intermediate\\Build\\Win64\\UE4Editor\\Development\\DungeonTrail\\Definitions.DungeonTrail.h",
 			"C:\\My_Files\\Developing\\UnrealEngine\\UE4_DungeonTrail\\Intermediate\\Build\\Win64\\DungeonTrailEditor\\Development\\Engine\\SharedPCH.Engine.ShadowErrors.h"
-		]
+		],
+		"C_Cpp.intelliSenseEngine": "Tag Parser"
 	},
 	"extensions": {
 		"recommendations": [

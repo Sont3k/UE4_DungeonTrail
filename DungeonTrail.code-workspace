@@ -7,16 +7,55 @@
 		{
 			"name": "UE4",
 			"path": "C:\\Program Files\\Epic Games\\UE_4.26"
+		},
+		{
+			"name": "Extensions",
+			"path": "c:\\Users\\kerav\\.vscode\\extensions\\suvam0451.sleeping-forest-ue4-0.6.14\\src\\data\\extensions"
 		}
 	],
 	"settings": {
 		"typescript.tsc.autoDetect": "off",
-		"C_Cpp.default.forcedInclude": [
-			"${default}",
-			"C:\\My_Files\\Developing\\UnrealEngine\\UE4_DungeonTrail\\Intermediate\\Build\\Win64\\UE4Editor\\Development\\DungeonTrail\\Definitions.DungeonTrail.h",
-			"C:\\My_Files\\Developing\\UnrealEngine\\UE4_DungeonTrail\\Intermediate\\Build\\Win64\\DungeonTrailEditor\\Development\\Engine\\SharedPCH.Engine.ShadowErrors.h"
-		],
-		"C_Cpp.intelliSenseEngine": "Tag Parser"
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**.exe": true,
+			"**.dll": true,
+			"**.egstore": true,
+			"**.generated.h": true,
+			"**.uasset": true,
+			"**.gitignore": true,
+			"**.gitattributes": true,
+			"**/Intermediate": true,
+			"**/Saved": true,
+			"**/Binaries": true,
+			"**/Build": true,
+			"**/DerivedDataCache": true,
+			"**/Documentation": true,
+			"**/Programs": true,
+			"**/FeaturePacks": true,
+			"**/Samples": true,
+			"**/Templates": true,
+			"**/Extras": true,
+			"**/Engine/Source/Editor": true,
+			"**/Content": true,
+			"**/Resources": true
+		},
+		"files.watcherExclude": {
+			"**/.git/objects/**": true,
+			"**/.git/subtree-cache/**": true,
+			"**/node_modules/*/**": true,
+			"**/.hg/store/**": true,
+			"**/Engine/**": true
+		},
+		"search.exclude": {
+			"**/node_modules": true,
+			"**/bower_components": true,
+			"**/*.code-search": true,
+			"**/Engine/Source/Editor": true
+		}
 	},
 	"extensions": {
 		"recommendations": [

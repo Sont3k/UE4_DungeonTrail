@@ -23,11 +23,25 @@ void UGrabber::BeginPlay()
 	Super::BeginPlay();
 
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
 
 	if (!PhysicsHandle)
 	{
 		UE_LOG(LogTemp, Error, TEXT("There is no PhysicsHandleComponent on Actor: %s"), *GetOwner()->GetName());
 	}
+
+	if (!InputComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("There is no InputComponent on Actor: %s"), *GetOwner()->GetName());
+	}
+
+	InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+}
+
+
+void UGrabber::Grab()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grabber Pressed"));
 }
 
 

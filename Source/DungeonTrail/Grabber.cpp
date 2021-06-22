@@ -16,19 +16,28 @@ UGrabber::UGrabber()
 	// ...
 }
 
-
 // Called when the game starts
 void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
 
+	FindPhysicsHandle();
+	SetupInputComponent();
+}
+
+void UGrabber::FindPhysicsHandle()
+{
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
 
 	if (!PhysicsHandle)
 	{
 		UE_LOG(LogTemp, Error, TEXT("There is no PhysicsHandleComponent on Actor: %s"), *GetOwner()->GetName());
 	}
+}
+
+void UGrabber::SetupInputComponent()
+{
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
 
 	if (!InputComponent)
 	{
@@ -39,32 +48,31 @@ void UGrabber::BeginPlay()
 	InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::ReleaseGrab);
 }
 
-
 void UGrabber::Grab()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grabber Pressed"));
-}
 
+	GetFirstPhysicsBodyInReach();
+}
 
 void UGrabber::ReleaseGrab()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grabber Released"));
 }
 
-
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+}
 
+FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
+{
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
 
 	GetWorld()->GetFirstPlayerController()->
 	            GetPlayerViewPoint(OUT PlayerViewPointLocation, OUT PlayerViewPointRotation);
-
-	// UE_LOG(LogTemp, Warning, TEXT("ViewPoint Location: %s"), *PlayerViewPointLocation.ToString());
-	// UE_LOG(LogTemp, Warning, TEXT("ViewPoint Rotation: %s"), *PlayerViewPointRotation.ToString());
 
 	const FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
 	DrawDebugLine(
@@ -95,4 +103,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Hitted Actor: %s"), *Hit.GetActor()->GetName());
 	}
+
+	return Hit;
 }

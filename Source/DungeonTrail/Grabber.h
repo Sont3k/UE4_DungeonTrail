@@ -28,10 +28,15 @@ public:
 	                           FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	float Reach = 100.f;
+	float Reach = 300.f;
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComponent = nullptr;
 
+	void FindPhysicsHandle();
+	void SetupInputComponent();
+
 	void Grab();
 	void ReleaseGrab();
+
+	FHitResult GetFirstPhysicsBodyInReach() const;
 };

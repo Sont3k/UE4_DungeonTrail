@@ -28,7 +28,7 @@ public:
 	                           FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	float Reach = 100.f;
+	float Reach = 300.f;
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComponent = nullptr;
 
@@ -39,4 +39,8 @@ private:
 	void ReleaseGrab();
 
 	FHitResult GetFirstPhysicsBodyInReach() const;
+
+	// Return The Line Trace End
+	FVector GetPlayerReach() const;
+	FVector GetPlayerWorldPosition() const;
 };

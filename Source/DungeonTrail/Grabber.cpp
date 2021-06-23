@@ -50,20 +50,52 @@ void UGrabber::SetupInputComponent()
 
 void UGrabber::Grab()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Grabber Pressed"));
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
 
-	GetFirstPhysicsBodyInReach();
+	GetWorld()->GetFirstPlayerController()->
+	            GetPlayerViewPoint(OUT PlayerViewPointLocation, OUT PlayerViewPointRotation);
+
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+
+	FHitResult HitResult = GetFirstPhysicsBodyInReach();
+	UPrimitiveComponent* ComponentToGrab = HitResult.GetComponent();
+
+	if (HitResult.GetActor())
+	{
+		PhysicsHandle->GrabComponentAtLocation(
+			ComponentToGrab,
+			NAME_None,
+			LineTraceEnd
+		);
+
+		UE_LOG(LogTemp, Warning, TEXT("Actor Grabbed"));
+	}
 }
 
 void UGrabber::ReleaseGrab()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Grabber Released"));
+	PhysicsHandle->ReleaseComponent();
 }
 
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+
+	GetWorld()->GetFirstPlayerController()->
+	            GetPlayerViewPoint(OUT PlayerViewPointLocation, OUT PlayerViewPointRotation);
+
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+
+	if (PhysicsHandle->GrabbedComponent)
+	{
+		PhysicsHandle->SetTargetLocation(LineTraceEnd);
+		UE_LOG(LogTemp, Warning, TEXT("Grabber Actor Moving"));
+	}
 }
 
 FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
@@ -74,7 +106,7 @@ FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
 	GetWorld()->GetFirstPlayerController()->
 	            GetPlayerViewPoint(OUT PlayerViewPointLocation, OUT PlayerViewPointRotation);
 
-	const FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
 	DrawDebugLine(
 		GetWorld(),
 		PlayerViewPointLocation,

@@ -28,6 +28,7 @@ public:
 	                           FActorComponentTickFunction* ThisTickFunction) override;
 	void OpenDoor(float DeltaTime);
 	void CloseDoor(float DeltaTime);
+	float TotalMassOfActors() const;
 
 private:
 	float InitialYaw;
@@ -49,4 +50,6 @@ private:
 	ATriggerVolume* PressurePlate;
 	UPROPERTY(EditAnywhere)
 	AActor* ActorThatOpens;
+	UPROPERTY(EditAnywhere)
+	float MassToOpenDoors = 50.f;
 };

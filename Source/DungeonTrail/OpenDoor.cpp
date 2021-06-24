@@ -31,8 +31,6 @@ void UOpenDoor::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("%s has the open door component on it, but no Pressure Plate is set"),
 		       *GetOwner()->GetName());
 	}
-
-	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
 }
 
 // Called every frame

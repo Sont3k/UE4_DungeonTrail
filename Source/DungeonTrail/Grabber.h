@@ -29,7 +29,9 @@ public:
 
 private:
 	float Reach = 300.f;
+	UPROPERTY()
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UPROPERTY()
 	UInputComponent* InputComponent = nullptr;
 
 	void FindPhysicsHandle();
